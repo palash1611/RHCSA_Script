@@ -1,4 +1,11 @@
 #!/bin/bash 
+# Script to check sample RHCSA Practice exam (EX200)
+# NOTE - This is not the official Red Hat Certified System Administrator Exam (EX200) Script.
+# This script is written to improve students' effeciency in the sample RHCSA practice exam by
+# Institute of Technical Education, Bhopal (M.P.)
+#
+#	Author		: Palash Chaturvedi
+#	Date		: 25/05/2018
 
 	correct_ques=0
 	incorrect_ques=0
