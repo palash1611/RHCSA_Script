@@ -463,6 +463,152 @@ Checking Ques 13 CREATE USER dax........
 
 
 
+echo " 
+==========================================
+Checking Ques 14 EXTEND SWAP SPACE........
+==========================================
+"
+
+	size=$( swapon -s | grep partition | grep -n partition | grep ^'2:' | awk '{ print $3;}' | cut -c -3 )
+
+	if [ -z "$size" ];
+	then
+		echo " "
+		echo "ERROR!!No New Swap partition found"
+		incorrect_ques=$((incorrect_ques + 1))
+	elif [ "$size" -lt 250 ] || [ "$size" -gt 270 ];
+	then
+		echo " "
+		echo "ERROR!! Wrong Size"
+		incorrect_ques=$((incorrect_ques + 1))
+	else
+		echo "Additional 250MB of swap is added [ OK ]"
+		correct_ques=$((correct_ques + 1))
+	fi
+
+echo " 
+==========================================
+Checking Ques 15 LOCATE THE FILES.........
+==========================================
+"
+
+
+	dir=/root/found
+	files=$(find $dir -user dax 2> /dev/null | wc -l )
+
+
+	if [ -d "$dir" ];
+	then
+		if [ "$files" -eq 0 ];
+		then
+			echo " "
+			echo "ERROR!! No Files found"
+			incorrect_ques=$((incorrect_ques + 1))
+		elif [ "$files" -gt 7 ];
+		then
+			echo " "
+			echo "Files Found [ OK ]"
+			correct_ques=$((correct_ques + 1))
+		else
+			echo " "
+			echo "ERROR!! All files are not present"
+			incorrect_ques=$((incorrect_ques + 1))
+		fi
+	else
+		echo " "
+		echo "ERROR!! $dir not present"
+		incorrect_ques=$((incorrect_ques + 1))
+	fi
+	
+
+
+echo " 
+==========================================
+Checking Ques 16 SEARCH FOE WORDS.........
+==========================================
+"
+
+	file='/usr/share/dict/words'
+	output='/root/word.found'
+
+	size=$( grep full $file | wc -l )
+	size2=$( cat $output | wc -l )
+
+
+	if [ -f "$output" ];
+	then
+		if [ "$size" -eq "$size2" ];
+		then
+			echo " "
+			echo "All the words are copied successfully [ OK ]"
+			correct_ques=$((correct_ques + 1))
+		else
+			echo " "
+			echo "ERROR!! All the words are not present"
+			incorrect_ques=$((incorrect_ques + 1))
+		fi
+	else
+		echo " "
+		echo "ERROR!! File not found"
+		incorrect_ques=$((incorrect_ques + 1))
+	fi
+
+
+echo " 
+=====================================
+Checking Ques 17 TAR AND GZIP........
+=====================================
+"
+
+	if [ -d "/root/extract" ];
+	then
+		if (ls /root/extract/ | grep "home.tar" &>> /dev/null);
+		then
+			echo " "
+			echo " Question solved correctly [ OK ]"
+			correct_ques=$((correct_ques + 1))
+
+		else	
+			echo " "
+			echo "ERROR!! home.tar not found in /root/extract"
+			incorrect_ques=$((incorrect_ques + 1))
+		fi
+	else
+		echo " "
+		echo "ERROR!! /root/extract Directory not found"
+		incorrect_ques=$((incorrect_ques + 1))
+	fi
+
+
+
+echo "
+=================================================================================================
+			R  E  S  U  L  T	S  U  M  M  A  R  Y
+=================================================================================================
+"
+echo " "		
+echo " IP address is $system_ip"
+
+echo " "		
+echo " Hostname is $hname"
+
+echo " "
+echo " Total Correctly Solved Questions = $correct_ques"
+
+echo " " 
+echo " Total Incorrectly Solved Questions = $incorrect_ques"
+
+echo "
+=================================================================================================
+					 E  N  D
+=================================================================================================
+"
+
+
+
+
+
+
 
 
 
