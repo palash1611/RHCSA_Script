@@ -1,4 +1,11 @@
 #!/bin/bash 
+# Script to check sample RHCSA Practice exam (EX200)
+# NOTE - This is not the official Red Hat Certified System Administrator Exam (EX200) Script.
+# This script is written to improve students' effeciency in the sample RHCSA practice exam by
+# Institute of Technical Education, Bhopal (M.P.)
+#
+#	Author		: Palash Chaturvedi
+#	Date		: 25/05/2018
 
 	correct_ques=0
 	incorrect_ques=0
@@ -30,7 +37,7 @@ Checking Ques 0 SELINUX.....
 
 	if [ $selinux == 'Enforcing' ]; then
 		echo " "
-		echo "BINGO! Selinux policy is set correctly "
+		echo "Selinux policy is set correctly [ OK ]"
 		correct_ques=$((correct_ques + 1))
 	else 
 		echo " "
@@ -73,7 +80,7 @@ Current size : $pesize
 							if ( mount  | grep -i \/mnt\/secret | grep -i vfat  &> /dev/null );
 							then	
 								echo " "							
-								echo "BINGO!! LVM is configured according to the question"
+								echo "LVM is configured according to the question [ OK ]"
 								correct_ques=$((correct_ques + 1))
 							else
 								echo " "
@@ -130,7 +137,7 @@ Checking Ques 2 USER'S GROUPS AND PERMISSION.....
 				if [ "$shell" == '/bin/False' ] || [ "$shell" == '/sbin/nologin' ];
 				then
 					echo " "
-					echo "BINGO!! Users sarah, natasha and harry are configured perfectly !!"
+					echo "Users sarah, natasha and harry are configured perfectly [ OK ]"
 					correct_ques=$((correct_ques + 1))
 				else
 					echo " "
@@ -177,7 +184,7 @@ Checking Ques 3 DIRECTORY COLLABORATION..........
 					if [ "$user" == 'root' ];
 					then
 						echo " "
-						echo "BINGO!! Collaborative Directory configured according to the question !!"
+						echo "Collaborative Directory configured according to the question [ OK ]"
 						correct_ques=$((correct_ques + 1))
 					fi
 				else
@@ -211,7 +218,7 @@ Checking Ques 4 UPDATE THE KERNEL..........
 
 		if [ $kernel_vers == '3.10.0-123.el7.x86_64' ]; then
 			echo " "
-			echo "BINGO!! Current Kernel version is $kernel_vers | CORRECT!"
+			echo "Current Kernel version is $kernel_vers | CORRECT [ OK ]"
 			correct_ques=$((correct_ques + 1))
 		else
 			echo " "
@@ -238,7 +245,7 @@ Checking Ques 5 CRON JOB..........
 			if [ "$user" == 'max' ];
 			then
 				echo " "
-				echo "Bingo!! Crontab perfectly configured .."
+				echo "Crontab perfectly configured [ OK ]"
 				correct_ques=$((correct_ques + 1))
 			else
 				echo " "
@@ -282,7 +289,7 @@ Checking Ques 6 RESIZE LVM........
 				incorrect_ques=$((incorrect_ques + 1))
 			else
 				echo " "
-				echo "BINGO!! LVM resized with no errors "
+				echo "LVM resized with no errors [ OK ]"
 				correct_ques=$((correct_ques + 1))
 			fi
 		else
@@ -301,7 +308,7 @@ Checking Ques 7 BIND THE LDAP FOR USER AUTHENTICATION........
 	if  su -l ldapuser1 -c pwd &> /dev/null;
 	then
 		echo " "
-		echo "BINGO!! Ldap is working properly"
+		echo "Ldap is working properly [ OK ]"
 		correct_ques=$((correct_ques + 1))
 	else
 		echo " "
@@ -319,7 +326,7 @@ Checking Ques 8 NTP CLIENT........
 	if (  ntpstat  | grep synchronised &> /dev/null );
 	then
 		echo " "
-		echo "BINGO!! NTP is Synchronised"
+		echo "NTP is Synchronised [ OK ]"
 		correct_ques=$((correct_ques + 1))
 	else
 		echo " "
@@ -341,7 +348,7 @@ Checking Ques 9 AUTOMOUNT THE HOME DIRECTORY FOR LDAPUSER........
 			if (  mount | grep ldapuser1  | grep -E 'nfsvers=4|vers=4' &> /dev/null );
 			then
 				echo " "
-				echo "BINGO!! Automounting is working using NFS Version 4"
+				echo "Automounting is working using NFS Version 4 [ OK ]"
 				correct_ques=$((correct_ques + 1))
 			else
 				echo " "
@@ -395,7 +402,7 @@ Checking Ques 10 ACCESS CONTROL LIST........
 								if [ "$group" == 'ftp' ];
 								then
 									echo " "
-									echo "BINGO!! ACL is correctly set and permissions of /data is also correct"
+									echo "ACL is correctly set and permissions of /data is also correct [ OK ]"
 									correct_ques=$((correct_ques + 1))
 								else
 									echo " "
@@ -453,7 +460,7 @@ Checking Ques 13 CREATE USER dax........
 	if [ $(grep dax /etc/passwd | cut -d ':' -f3 ) -eq "$uid" ];
 	then
 		echo " "
-		echo "BINGO!! User dax have correct uid"
+		echo "User dax have correct uid [ OK ]"
 		correct_ques=$((correct_ques + 1))
 	else
 		echo " "
